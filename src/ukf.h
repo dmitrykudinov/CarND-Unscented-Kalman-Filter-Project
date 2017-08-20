@@ -31,7 +31,13 @@ public:
   ///* predicted sigma points matrix
   MatrixXd Xsig_pred_;
 
-  ///* time when the state is true, in us
+  ///* Augmented predicted sigma points matrix
+  MatrixXd Xsig_aug_;
+
+  ///*previous measurement received at
+  long long previous_timestamp_;
+
+  ///* time when the state is true, in ms
   long long time_us_;
 
   ///* Process noise standard deviation longitudinal acceleration in m/s^2
@@ -66,6 +72,12 @@ public:
 
   ///* Sigma point spreading parameter
   double lambda_;
+  
+  ///* Radar NIS
+  float NIS_radar_;
+
+  ///* Lidar NIS
+  float NIS_lidar_;
 
 
   /**
@@ -77,6 +89,11 @@ public:
    * Destructor
    */
   virtual ~UKF();
+
+  /**
+   * Augmentation part
+   */ 
+  void AugmentedSigmaPoints();
 
   /**
    * ProcessMeasurement
